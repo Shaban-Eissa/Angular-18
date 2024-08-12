@@ -6,7 +6,7 @@ import { NumericDirective } from './numeric.directive';
 import { PermissionDirective } from './permission.directive';
 import { ProductsModule } from './products/products.module';
 import { APP_SETTINGS, AppSettings, appSettings } from './app.settings';
-import { Observable } from 'rxjs';
+import { from, Observable } from 'rxjs';
 import { KeyLoggerComponent } from './key-logger/key-logger.component';
 
 @Component({
@@ -41,6 +41,8 @@ export class AppComponent {
     // this.changeTitle(this.setTitle);
     // this.onComplete().then(this.setTitle);
     this.title$.subscribe(this.setTitle);
+    // const complete$ = from(this.onComplete());
+    // complete$.subscribe(this.setTitle);
   }
 
   private changeTitle = (callback: Function) => {
