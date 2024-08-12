@@ -21,12 +21,24 @@ import { ProductViewComponent } from '../product-view/product-view.component';
   styleUrl: './product-list.component.css',
   providers: [ProductsService],
 })
-export class ProductListComponent {
-  products = inject(ProductsService).getProducts();
-
+export class ProductListComponent implements OnInit {
+  // products = inject(ProductsService).getProducts();
+  products: Product[] = [];
   selectedProduct: Product | undefined;
+
+  constructor(private ProductsService: ProductsService) {}
 
   onAdded(product: Product) {
     alert(`${product.title} added to the cart!`);
+  }
+
+  private getProducts() {
+    return this.ProductsService.getProducts().subscribe((products) => {
+      this.products = products;
+    });
+  }
+
+  ngOnInit() {
+    this.getProducts();
   }
 }
