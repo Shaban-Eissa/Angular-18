@@ -17,9 +17,4 @@
   }
 </ul>
 
-@if(selectedProduct) {
-  <span>
-    You selected:
-    <strong>{{selectedProduct.title}}</strong>
-  </span>
-}
+<app-product-details [product]="selectedProduct" (added)="onAdded($event)"></app-product-details>
