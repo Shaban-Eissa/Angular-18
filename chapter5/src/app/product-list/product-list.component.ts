@@ -5,6 +5,7 @@ import { SortPipe } from '../sort.pipe';
 import { ProductHostDirective } from '../product-host.directive';
 import { ProductsService } from '../products.service';
 import { FavoritesComponent } from '../favorites/favorites.component';
+import { ProductViewComponent } from '../product-view/product-view.component';
 
 @Component({
   selector: 'app-product-list',
@@ -12,6 +13,7 @@ import { FavoritesComponent } from '../favorites/favorites.component';
   imports: [
     ProductDetailsComponent,
     FavoritesComponent,
+    ProductViewComponent,
     SortPipe,
     ProductHostDirective,
   ],
