@@ -6,6 +6,7 @@ import {
   ViewEncapsulation,
   ChangeDetectionStrategy,
   OnInit,
+  OnDestroy,
 } from '@angular/core';
 import { Product } from '../product';
 
@@ -18,7 +19,7 @@ import { Product } from '../product';
   encapsulation: ViewEncapsulation.None,
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class ProductDetailsComponent implements OnInit {
+export class ProductDetailsComponent implements OnDestroy {
   @Input() product: Product | undefined;
   @Output() added = new EventEmitter<Product>();
 
@@ -26,8 +27,14 @@ export class ProductDetailsComponent implements OnInit {
     console.log('ProductDetailsComponent created', this.product);
   }
 
-  ngOnInit(): void {
-    console.log('ProductDetailsComponent initialized', this.product);
+  // ngOnInit(): void {
+  //   console.log('ProductDetailsComponent initialized', this.product);
+  // }
+
+  ngOnDestroy(): void {
+    console.log(
+      'We can use this hook to unsubscribe from external resources or cancel some events when component unmounted or destroyed'
+    );
   }
 
   addToCart() {
