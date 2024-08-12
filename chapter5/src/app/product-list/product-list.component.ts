@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, inject, OnInit } from '@angular/core';
 import { Product } from '../product';
 import { ProductDetailsComponent } from '../product-details/product-details.component';
 import { SortPipe } from '../sort.pipe';
@@ -12,16 +12,10 @@ import { ProductsService } from '../products.service';
   templateUrl: './product-list.component.html',
   styleUrl: './product-list.component.css',
 })
-export class ProductListComponent implements OnInit {
-  products: Product[] = [];
+export class ProductListComponent {
+  products = inject(ProductsService).getProducts();
 
-  selectedProduct: Product | undefined = this.products[0];
-
-  constructor(private productsService: ProductsService) {}
-
-  ngOnInit(): void {
-    this.products = this.productsService.getProducts();
-  }
+  selectedProduct: Product | undefined;
 
   onAdded(product: Product) {
     alert(`${product.title} added to the cart!`);
