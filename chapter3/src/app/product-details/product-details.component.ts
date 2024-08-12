@@ -1,4 +1,4 @@
-import { Component, Input, Output, EventEmitter } from '@angular/core';
+import { Component, Input, Output, EventEmitter, ViewEncapsulation } from '@angular/core';
 import { Product } from '../product';
 
 @Component({
@@ -7,6 +7,7 @@ import { Product } from '../product';
   imports: [],
   templateUrl: './product-details.component.html',
   styleUrl: './product-details.component.css',
+  encapsulation: ViewEncapsulation.None
 })
 export class ProductDetailsComponent {
   @Input() product: Product | undefined;

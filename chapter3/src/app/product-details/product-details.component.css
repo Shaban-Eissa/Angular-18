@@ -21,3 +21,7 @@ button {
 button:hover {
   background: color-mix(in srgb, var(--button-accent) 50%, transparent);
 }
+
+div {
+  border: 1px dashed #ccc;
+}
