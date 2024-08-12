@@ -7,6 +7,8 @@ import {
   ChangeDetectionStrategy,
   OnInit,
   OnDestroy,
+  OnChanges,
+  SimpleChanges,
 } from '@angular/core';
 import { Product } from '../product';
 
@@ -19,7 +21,7 @@ import { Product } from '../product';
   encapsulation: ViewEncapsulation.None,
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class ProductDetailsComponent implements OnDestroy {
+export class ProductDetailsComponent implements OnChanges {
   @Input() product: Product | undefined;
   @Output() added = new EventEmitter<Product>();
 
@@ -31,11 +33,21 @@ export class ProductDetailsComponent implements OnDestroy {
   //   console.log('ProductDetailsComponent initialized', this.product);
   // }
 
-  ngOnDestroy(): void {
-    console.log(
-      'We can use this hook to unsubscribe from external resources or cancel some events when component unmounted or destroyed'
-    );
+  ngOnChanges(changes: SimpleChanges): void {
+    const product = changes['product'];
+    if (!product.isFirstChange()) {
+      const oldValue = product.previousValue;
+      const newValue = product.currentValue;
+      console.log('Old Value', oldValue);
+      console.log('New Value', newValue);
+    }
   }
+
+  // ngOnDestroy(): void {
+  //   console.log(
+  //     'We can use this hook to unsubscribe from external resources or cancel some events when component unmounted or destroyed'
+  //   );
+  // }
 
   addToCart() {
     this.added.emit(this.product);
