@@ -7,6 +7,7 @@ import { PermissionDirective } from './permission.directive';
 import { ProductsModule } from './products/products.module';
 import { APP_SETTINGS, AppSettings, appSettings } from './app.settings';
 import { Observable } from 'rxjs';
+import { KeyLoggerComponent } from './key-logger/key-logger.component';
 
 @Component({
   selector: 'app-root',
@@ -14,6 +15,7 @@ import { Observable } from 'rxjs';
   imports: [
     RouterOutlet,
     ProductListComponent,
+    KeyLoggerComponent,
     CopyrightDirective,
     NumericDirective,
     PermissionDirective,

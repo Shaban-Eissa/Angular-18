@@ -1,8 +1,10 @@
 <header>{{title}}</header>
+<app-key-logger ></app-key-logger>
 
 <main class="main" *appPermission="['admin', 'user']">
   <div class="content">
     <app-product-list></app-product-list>
+
   </div>
 </main>
 <footer appCopyright></footer>
