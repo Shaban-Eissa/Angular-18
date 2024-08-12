@@ -1,4 +1,11 @@
-import { Component, Input, Output, EventEmitter, ViewEncapsulation } from '@angular/core';
+import {
+  Component,
+  Input,
+  Output,
+  EventEmitter,
+  ViewEncapsulation,
+  ChangeDetectionStrategy,
+} from '@angular/core';
 import { Product } from '../product';
 
 @Component({
@@ -7,7 +14,8 @@ import { Product } from '../product';
   imports: [],
   templateUrl: './product-details.component.html',
   styleUrl: './product-details.component.css',
-  encapsulation: ViewEncapsulation.None
+  encapsulation: ViewEncapsulation.None,
+  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class ProductDetailsComponent {
   @Input() product: Product | undefined;
@@ -15,5 +23,9 @@ export class ProductDetailsComponent {
 
   addToCart() {
     this.added.emit(this.product);
+  }
+
+  get productTitle() {
+    return this.product?.title;
   }
 }
