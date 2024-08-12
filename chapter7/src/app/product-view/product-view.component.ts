@@ -1,4 +1,10 @@
-import { Component, Input, OnInit } from '@angular/core';
+import {
+  Component,
+  Input,
+  OnInit,
+  signal,
+  WritableSignal,
+} from '@angular/core';
 import { ProductViewService } from '../product-view.service';
 import { Product } from '../product';
 import { Subject, takeUntil } from 'rxjs';
@@ -13,7 +19,7 @@ import { Subject, takeUntil } from 'rxjs';
 })
 export class ProductViewComponent implements OnInit {
   @Input() id: number | undefined;
-  product: Product | undefined;
+  product: WritableSignal<Product | undefined> = signal(undefined);
   private productSub = new Subject<void>();
 
   constructor(private productViewService: ProductViewService) {}
@@ -30,6 +36,6 @@ export class ProductViewComponent implements OnInit {
     this.productViewService
       .getProduct(this.id!)
       .pipe(takeUntil(this.productSub))
-      .subscribe((product) => (this.product = product));
+      .subscribe((product) => this.product.set(product));
   }
 }
