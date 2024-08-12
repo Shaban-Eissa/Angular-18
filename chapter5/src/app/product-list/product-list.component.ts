@@ -3,7 +3,7 @@ import { Product } from '../product';
 import { ProductDetailsComponent } from '../product-details/product-details.component';
 import { SortPipe } from '../sort.pipe';
 import { ProductHostDirective } from '../product-host.directive';
-import { ProductsService } from '../products.service';
+import { ProductsService } from '../products/products.service';
 import { FavoritesComponent } from '../favorites/favorites.component';
 import { ProductViewComponent } from '../product-view/product-view.component';
 

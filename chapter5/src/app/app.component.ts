@@ -4,6 +4,7 @@ import { ProductListComponent } from './product-list/product-list.component';
 import { CopyrightDirective } from './copyright.directive';
 import { NumericDirective } from './numeric.directive';
 import { PermissionDirective } from './permission.directive';
+import { ProductsModule } from './products/products.module';
 
 @Component({
   selector: 'app-root',
@@ -14,6 +15,7 @@ import { PermissionDirective } from './permission.directive';
     CopyrightDirective,
     NumericDirective,
     PermissionDirective,
+    ProductsModule,
   ],
   templateUrl: './app.component.html',
   styleUrl: './app.component.css',
