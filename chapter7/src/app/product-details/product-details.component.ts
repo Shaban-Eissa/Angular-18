@@ -41,9 +41,9 @@ export class ProductDetailComponent implements OnChanges {
     this.productService.updateProduct(product.id, Number(price)).subscribe();
   }
 
-  // remove(product: Product) {
-  //   this.productService.deleteProduct(product.id).subscribe(() => {
-  //     this.deleted.emit();
-  //   });
-  // }
+  remove(product: Product) {
+    this.productService.deleteProduct(product.id).subscribe(() => {
+      this.deleted.emit();
+    });
+  }
 }

@@ -55,12 +55,12 @@ export class ProductsService {
       );
   }
 
-  // deleteProduct(id: number): Observable<void> {
-  //   return this.http.delete<void>(`${this.productsUrl}/${id}`).pipe(
-  //     tap(() => {
-  //       const index = this.products.findIndex((p) => p.id === id);
-  //       this.products.splice(index, 1);
-  //     })
-  //   );
-  // }
+  deleteProduct(id: number): Observable<void> {
+    return this.http.delete<void>(`${this.productsUrl}/${id}`).pipe(
+      tap(() => {
+        const index = this.products.findIndex((p) => p.id === id);
+        this.products.splice(index, 1);
+      })
+    );
+  }
 }
