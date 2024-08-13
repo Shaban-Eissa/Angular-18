@@ -4,7 +4,6 @@ import { ProductListComponent } from './product-list/product-list.component';
 import { CopyrightDirective } from './copyright.directive';
 import { NumericDirective } from './numeric.directive';
 import { PermissionDirective } from './permission.directive';
-import { ProductsModule } from './products/products.module';
 import { APP_SETTINGS, AppSettings, appSettings } from './app.settings';
 import { from, Observable } from 'rxjs';
 import { KeyLoggerComponent } from './key-logger/key-logger.component';
@@ -19,11 +18,10 @@ import { KeyLoggerComponent } from './key-logger/key-logger.component';
     CopyrightDirective,
     NumericDirective,
     PermissionDirective,
-    ProductsModule,
   ],
   templateUrl: './app.component.html',
   styleUrl: './app.component.css',
-  providers: [{ provide: APP_SETTINGS, useValue: appSettings }],
+  providers: [],
 })
 export class AppComponent {
   title = 'chapter3';

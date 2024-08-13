@@ -1,5 +1,5 @@
 import { inject, Injectable } from '@angular/core';
-import { ProductsService } from './products/products.service';
+import { ProductsService } from './products.service';
 import { Product } from './product';
 import { Observable, of, switchMap } from 'rxjs';
 

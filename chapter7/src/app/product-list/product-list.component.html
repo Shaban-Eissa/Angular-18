@@ -1,4 +1,4 @@
-@if (products) {
+@if (products$ | async; as products) {
   @if (products.length > 0) {
     <h1>Products ({{products.length}})</h1>
   }
@@ -6,7 +6,11 @@
   <ul class="pill-group">
     @for (product of products | sort; track product.id) {
       <li class="pill" (click)="selectedProduct = product">
-        <app-product-view [id]="product.id"></app-product-view>
+        @switch (product.category) {
+          @case ('electronics') { ⌨️ }
+          @case ('jewelery') { 💎 }
+          @default { 🏷️ }
+        }
         {{product.title}}
       </li>
     } @empty {
@@ -14,8 +18,10 @@
     }
   </ul>
 }
+<app-product-detail
+  [id]="selectedProduct?.id"
+  (added)="onAdded()"
+  (deleted)="selectedProduct = undefined"
+></app-product-detail>
 
-<app-product-details
-  [product]="selectedProduct"
-  (added)="onAdded($event)"
-></app-product-details>
+<app-product-create></app-product-create>

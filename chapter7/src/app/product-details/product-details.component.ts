@@ -1,61 +1,50 @@
+import { CommonModule } from '@angular/common';
 import {
   Component,
+  EventEmitter,
   Input,
   Output,
-  EventEmitter,
-  ViewEncapsulation,
-  ChangeDetectionStrategy,
-  OnInit,
-  OnDestroy,
   OnChanges,
-  SimpleChanges,
 } from '@angular/core';
-
-import { CommonModule } from '@angular/common';
 import { Product } from '../product';
+import { Observable } from 'rxjs';
+import { ProductsService } from '../products.service';
+import { NumericDirective } from '../numeric.directive';
+// import { AuthService } from '../auth.service';
 
 @Component({
-  selector: 'app-product-details',
+  selector: 'app-product-detail',
   standalone: true,
-  imports: [CommonModule],
+  imports: [CommonModule, NumericDirective],
   templateUrl: './product-details.component.html',
   styleUrl: './product-details.component.css',
-  encapsulation: ViewEncapsulation.None,
-  changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class ProductDetailsComponent implements OnChanges {
-  @Input() product: Product | undefined;
-  @Output() added = new EventEmitter<Product>();
+export class ProductDetailComponent implements OnChanges {
+  @Input() id: number | undefined;
+  @Output() added = new EventEmitter();
+  @Output() deleted = new EventEmitter();
+  product$: Observable<Product> | undefined;
 
-  constructor() {
-    console.log('ProductDetailsComponent created', this.product);
-  }
-
-  // ngOnInit(): void {
-  //   console.log('ProductDetailsComponent initialized', this.product);
-  // }
-
-  ngOnChanges(changes: SimpleChanges): void {
-    const product = changes['product'];
-    if (!product.isFirstChange()) {
-      const oldValue = product.previousValue;
-      const newValue = product.currentValue;
-      console.log('Old Value', oldValue);
-      console.log('New Value', newValue);
-    }
-  }
-
-  // ngOnDestroy(): void {
-  //   console.log(
-  //     'We can use this hook to unsubscribe from external resources or cancel some events when component unmounted or destroyed'
-  //   );
-  // }
+  constructor(
+    private productService: ProductsService
+  ) // public authService: AuthService
+  {}
 
   addToCart() {
-    this.added.emit(this.product);
+    this.added.emit();
   }
 
-  get productTitle() {
-    return this.product?.title;
+  ngOnChanges(): void {
+    this.product$ = this.productService.getProduct(this.id!);
   }
+
+  // changePrice(product: Product, price: string) {
+  //   this.productService.updateProduct(product.id, Number(price)).subscribe();
+  // }
+
+  // remove(product: Product) {
+  //   this.productService.deleteProduct(product.id).subscribe(() => {
+  //     this.deleted.emit();
+  //   });
+  // }
 }

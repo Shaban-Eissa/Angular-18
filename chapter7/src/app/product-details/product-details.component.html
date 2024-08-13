@@ -1,13 +1,9 @@
-@if(product) {
- <div>
-  <span>
-    You selected:
-    <strong>{{productTitle}}</strong>
-  </span>
-
-  <p>
-    {{product.price | currency: 'EUR'}}
+@if (product$ | async; as product) {
+  <p>You selected:
+    <strong>{{product.title}}</strong>
   </p>
+  <p>{{product.price | currency:'EUR'}}</p>
+
 
   <div class="pill-group">
     @for (cat of product.categories | keyvalue; track cat.key) {
@@ -17,5 +13,4 @@
   <button (click) = "addToCart()">
     Buy now
   </button>
- </div>
 }
