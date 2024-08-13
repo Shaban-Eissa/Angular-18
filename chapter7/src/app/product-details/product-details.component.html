@@ -3,14 +3,10 @@
     <strong>{{product.title}}</strong>
   </p>
   <p>{{product.price | currency:'EUR'}}</p>
-
-
+  <input placeholder="New price" #price appNumeric/>
+  <button class="secondary" (click)="changePrice(product, price.value)">Change</button>
   <div class="pill-group">
-    @for (cat of product.categories | keyvalue; track cat.key) {
-      <p class="pill">{{cat.value | lowercase}}</p>
-    }
+    <p class="pill">{{ product.category }}</p>
   </div>
-  <button (click) = "addToCart()">
-    Buy now
-  </button>
+
 }

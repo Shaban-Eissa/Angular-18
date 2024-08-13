@@ -15,7 +15,7 @@ import { NumericDirective } from '../numeric.directive';
 @Component({
   selector: 'app-product-detail',
   standalone: true,
-  imports: [CommonModule, NumericDirective],
+  imports: [CommonModule, NumericDirective, NumericDirective],
   templateUrl: './product-details.component.html',
   styleUrl: './product-details.component.css',
 })
@@ -26,9 +26,8 @@ export class ProductDetailComponent implements OnChanges {
   product$: Observable<Product> | undefined;
 
   constructor(
-    private productService: ProductsService
-  ) // public authService: AuthService
-  {}
+    private productService: ProductsService // public authService: AuthService
+  ) {}
 
   addToCart() {
     this.added.emit();
@@ -38,9 +37,9 @@ export class ProductDetailComponent implements OnChanges {
     this.product$ = this.productService.getProduct(this.id!);
   }
 
-  // changePrice(product: Product, price: string) {
-  //   this.productService.updateProduct(product.id, Number(price)).subscribe();
-  // }
+  changePrice(product: Product, price: string) {
+    this.productService.updateProduct(product.id, Number(price)).subscribe();
+  }
 
   // remove(product: Product) {
   //   this.productService.deleteProduct(product.id).subscribe(() => {
