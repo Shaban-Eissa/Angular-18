@@ -1,7 +1,7 @@
 import { CommonModule } from '@angular/common';
 import { Component, OnInit } from '@angular/core';
-import { RouterLink } from '@angular/router';
-import { Observable } from 'rxjs';
+import { RouterLink, ActivatedRoute } from '@angular/router';
+import { Observable, switchMap } from 'rxjs';
 import { Product } from '../product';
 import { ProductDetailComponent } from '../product-detail/product-detail.component';
 import { SortPipe } from '../sort.pipe';
@@ -18,13 +18,20 @@ export class ProductListComponent implements OnInit {
   products$: Observable<Product[]> | undefined;
   selectedProduct: Product | undefined;
 
-  constructor(private productService: ProductsService) {}
+  constructor(
+    private productService: ProductsService,
+    private route: ActivatedRoute
+  ) {}
 
   onAdded() {
     alert(`${this.selectedProduct?.title} added to the cart!`);
   }
 
   ngOnInit(): void {
-    this.products$ = this.productService.getProducts();
+    this.products$ = this.route.queryParamMap.pipe(
+      switchMap((params) => {
+        return this.productService.getProducts(Number(params.get('limit')));
+      })
+    );
   }
 }
