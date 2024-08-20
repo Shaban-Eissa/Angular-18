@@ -1,6 +1,6 @@
 import { Component, Inject } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { RouterOutlet } from '@angular/router';
+import { RouterLinkActive, RouterOutlet } from '@angular/router';
 import { RouterLink } from '@angular/router';
 import { CopyrightDirective } from './copyright.directive';
 import { APP_SETTINGS, AppSettings } from './app.settings';
@@ -13,6 +13,7 @@ import { AuthComponent } from './auth/auth.component';
     CommonModule,
     RouterOutlet,
     RouterLink,
+    RouterLinkActive,
     CopyrightDirective,
     AuthComponent,
   ],
