@@ -2,7 +2,7 @@ input {
   border-radius: 4px;
   padding: 8px;
   margin-bottom: 16px;
-  border: 1px solid #BDBDBD;
+  border: 1px solid #bdbdbd;
   width: 200px;
 }
 
@@ -10,11 +10,15 @@ select {
   border-radius: 4px;
   padding: 8px;
   margin-bottom: 16px;
-  border: 1px solid #BDBDBD;
+  border: 1px solid #bdbdbd;
   width: 220px;
 }
 
 label {
   margin-bottom: 4px;
   display: block;
+}
+
+:host {
+  width: 400px;
 }
