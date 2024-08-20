@@ -2,7 +2,7 @@
 <form [formGroup]="productForm" (ngSubmit)="createProduct()">
   <div>
     <label for="title">Title</label>
-    <input id="title" formControlName="title" />
+    <input id="title" formControlName="title" required />
   </div>
   <div>
     <label for="price">Price</label>
