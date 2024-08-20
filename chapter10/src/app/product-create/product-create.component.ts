@@ -3,6 +3,7 @@ import { ProductsService } from '../products.service';
 import { NumericDirective } from '../numeric.directive';
 import { Router } from '@angular/router';
 import { FormControl, FormGroup, ReactiveFormsModule } from '@angular/forms';
+import { Validators } from '@angular/forms';
 
 @Component({
   selector: 'app-product-create',
@@ -15,9 +16,11 @@ export class ProductCreateComponent {
   productForm = new FormGroup({
     title: new FormControl('', {
       nonNullable: true,
+      validators: Validators.required,
     }),
     price: new FormControl<number | undefined>(undefined, {
       nonNullable: true,
+      validators: [Validators.required, Validators.min(1)],
     }),
     category: new FormControl('', { nonNullable: true }),
   });
