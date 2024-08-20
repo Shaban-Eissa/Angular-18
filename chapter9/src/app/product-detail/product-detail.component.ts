@@ -1,13 +1,15 @@
+import { Router, ActivatedRoute } from '@angular/router';
 import { CommonModule } from '@angular/common';
 import {
   Component,
   EventEmitter,
   Input,
   Output,
-  OnChanges
+  OnChanges,
+  OnInit,
 } from '@angular/core';
 import { Product } from '../product';
-import { Observable } from 'rxjs';
+import { Observable, switchMap } from 'rxjs';
 import { ProductsService } from '../products.service';
 import { NumericDirective } from '../numeric.directive';
 import { AuthService } from '../auth.service';
@@ -17,32 +19,42 @@ import { AuthService } from '../auth.service';
   standalone: true,
   imports: [CommonModule, NumericDirective],
   templateUrl: './product-detail.component.html',
-  styleUrl: './product-detail.component.css'
+  styleUrl: './product-detail.component.css',
 })
-export class ProductDetailComponent implements OnChanges {
+export class ProductDetailComponent implements OnInit {
   @Input() id: number | undefined;
-  @Output() added = new EventEmitter();
-  @Output() deleted = new EventEmitter();
   product$: Observable<Product> | undefined;
 
-  constructor(private productService: ProductsService, public authService: AuthService) { }
+  constructor(
+    private productService: ProductsService,
+    public authService: AuthService,
+    private router: Router,
+    private route: ActivatedRoute
+  ) {}
 
-  addToCart() {
-    this.added.emit();
+  ngOnInit(): void {
+    this.product$ = this.route.paramMap.pipe(
+      switchMap((params) => {
+        return this.productService.getProduct(Number(params.get('id')));
+      })
+    );
   }
 
-  ngOnChanges(): void {
-    this.product$ = this.productService.getProduct(this.id!);
+  addToCart() {
+    
   }
 
   changePrice(product: Product, price: string) {
-    this.productService.updateProduct(product.id, Number(price)).subscribe();
+    this.productService
+      .updateProduct(product.id, Number(price))
+      .subscribe(() => {
+        this.router.navigate(['/products']);
+      });
   }
 
   remove(product: Product) {
     this.productService.deleteProduct(product.id).subscribe(() => {
-      this.deleted.emit();
+      this.router.navigate(['/products']);
     });
   }
-  
 }
