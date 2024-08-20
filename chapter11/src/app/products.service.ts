@@ -1,7 +1,12 @@
-import { HttpClient, HttpParams } from '@angular/common/http';
+import {
+  HttpClient,
+  HttpParams,
+  HttpErrorResponse,
+  HttpStatusCode,
+} from '@angular/common/http';
 import { Injectable, inject } from '@angular/core';
 import { Product } from './product';
-import { Observable, map, of, tap } from 'rxjs';
+import { Observable, map, of, tap, catchError, throwError, retry } from 'rxjs';
 import { APP_SETTINGS } from './app.settings';
 
 @Injectable({
@@ -13,6 +18,25 @@ export class ProductsService {
 
   constructor(private http: HttpClient) {}
 
+  private handleError(error: HttpErrorResponse) {
+    let message = '';
+    switch (error.status) {
+      case HttpStatusCode.InternalServerError:
+        message = 'Server error. Please try again later.';
+        break;
+      case HttpStatusCode.NotFound:
+        message = 'Product not found.';
+        break;
+      case HttpStatusCode.BadRequest:
+        message = 'Invalid request. Please try again.';
+        break;
+      default:
+        console.error('Error fetching products', error);
+    }
+
+    console.error(message, error);
+    return throwError(() => error);
+  }
   getProducts(limit?: number): Observable<Product[]> {
     if (this.products.length === 0) {
       const options = new HttpParams().set('limit', limit || 10);
@@ -24,7 +48,9 @@ export class ProductsService {
           map((products) => {
             this.products = products;
             return products;
-          })
+          }),
+          retry(2),
+          catchError(this.handleError)
         );
     }
     return of(this.products);
