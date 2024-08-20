@@ -12,10 +12,12 @@
   box-sizing: inherit;
   position: relative;
 }
-input.valid {
+input.valid,
+input.ng-dirty.ng-valid {
   border: solid green;
 }
-input.invalid {
+input.invalid,
+input.ng-dirty.ng-invalid {
   border: solid red;
 }
 button {
@@ -40,7 +42,25 @@ button {
 button:hover {
   background: color-mix(in srgb, var(--button-accent) 50%, transparent);
 }
-
 a {
   text-decoration: none;
+}
+input {
+  border-radius: 4px;
+  padding: 8px;
+  margin-bottom: 16px;
+  border: 1px solid #bdbdbd;
+}
+label {
+  margin-bottom: 4px;
+  display: block;
+}
+.help-text {
+  display: flex;
+  color: var(--hot-red);
+  font-size: 0.875rem;
+}
+button:disabled {
+  background-color: lightgrey;
+  cursor: not-allowed;
 }

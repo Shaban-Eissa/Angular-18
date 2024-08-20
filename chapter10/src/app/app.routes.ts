@@ -5,10 +5,14 @@ import { ProductCreateComponent } from './product-create/product-create.componen
 import { ProductDetailComponent } from './product-detail/product-detail.component';
 import { authGuard } from './auth.guard';
 import { checkoutGuard } from './checkout.guard';
+
 export const routes: Routes = [
-  { path: 'products', component: ProductListComponent },
-  { path: 'products/:id', component: ProductDetailComponent },
+  {
+    path: 'products',
+    component: ProductListComponent,
+  },
   { path: 'products/new', component: ProductCreateComponent },
+  { path: 'products/:id', component: ProductDetailComponent },
   {
     path: 'cart',
     component: CartComponent,
@@ -17,7 +21,7 @@ export const routes: Routes = [
   },
   {
     path: 'user',
-    loadChildren: () => import('./user.routes').then((m) => m.default),
+    loadChildren: () => import('./user.routes'),
     canMatch: [authGuard],
   },
   { path: '', redirectTo: 'products', pathMatch: 'full' },
