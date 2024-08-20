@@ -22,7 +22,7 @@ import { AuthService } from '../auth.service';
   styleUrl: './product-detail.component.css',
 })
 export class ProductDetailComponent implements OnInit {
-  @Input() id: number | undefined;
+  @Input() id: string | undefined;
   product$: Observable<Product> | undefined;
 
   constructor(
@@ -38,8 +38,8 @@ export class ProductDetailComponent implements OnInit {
     //     return this.productService.getProduct(Number(params.get('id')));
     //   })
     // );
-    const id = this.route.snapshot.params['id'];
-    this.product$ = this.productService.getProduct(Number(id));
+
+    this.product$ = this.productService.getProduct(Number(this.id!));
   }
 
   addToCart() {}
